@@ -1,0 +1,8 @@
+---
+
+- name: Check for NodeJS
+  stat: path=/usr/local/bin/grunt
+  register: nodejs
+
+- include: nodejs.yml
+  when: nodejs.stat.exists == False
