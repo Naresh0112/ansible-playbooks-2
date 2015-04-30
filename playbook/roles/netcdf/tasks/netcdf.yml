@@ -5,7 +5,7 @@
   sudo: yes
 
 - name: Download NetCDF4 Source Code
-  get_url: url=ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-4.3.2.tar.gz dest=/tmp/netcdf-4.3.2.tar.gz force=no
+  get_url: url=ftp://ftp.unidata.ucar.edu/pub/netcdf/old/netcdf-4.3.2.tar.gz dest=/tmp/netcdf-4.3.2.tar.gz force=no
 
 - name: Extract NetCDF4 Source Code
   command: /bin/tar -zxvf /tmp/netcdf-4.3.2.tar.gz chdir=/usr/local/src creates=/usr/local/src/netcdf-4.3.2/configure
