@@ -1,7 +1,20 @@
 ---
 
-- name: Install HDF5
-  yum: name=http://www.hdfgroup.org/ftp/HDF5/current/bin/RPMS/hdf5-1.8.14-1.with.szip.encoder.el6.x86_64.rpm state=present
+- name: Install HDF5 MPI dependencies
+  yum: name={{ item }} state=present
+  sudo: yes
+  with_items: 
+    - openmpi-devel.x86_64
+
+- name: Install HDF5 from source
+  get_url: url=http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.15-patch1.tar.bz2 dest=/tmp/hdf5-1.8.15-patch1.tar.bz2 force=no
+
+- name: Extracet HDF5 Source Code
+  command: /bin/tar -jxvf /tmp/hdf5-1.8.15-patch1.tar.bz2 chdir=/usr/local/src creates=/usr/local/src/hdf5-1.8.15-patch1/configure
+  sudo: yes
+
+- name: Make and install HDF5
+  shell: ./configure --prefix=/usr && /usr/bin/make && /usr/bin/make check && /usr/bin/make install chdir=/usr/local/src/hdf5-1.8.15-patch1
   sudo: yes
 
 - name: Download NetCDF4 Source Code
