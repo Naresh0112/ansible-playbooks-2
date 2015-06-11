@@ -1,17 +1,17 @@
 ---
 
 - name: Setup Developer Account
-  user: name=dev state=present
+  user: name="{{username}}" state=present
   sudo: yes
 
 - name: Setup SSH Keys
   sudo: yes
-  sudo_user: dev
-  authorized_key: user=dev key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+  sudo_user: "{{username}}"
+  authorized_key: user="{{username}}" key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
 
 - name: Install standard development toolset
-  yum: name={{ item }} state=present
+  yum: name="{{ item }}" state=present
   with_items: 
     - ctags-etags.x86_64
     - tmux.x86_64
@@ -23,9 +23,9 @@
   sudo: yes
 
 - name: Check for Virtualenv
-  stat: path=/home/dev/.venvburrito/startup.sh
+  stat: path="/home/{{username}}/.venvburrito/startup.sh"
   sudo: yes
-  sudo_user: dev
+  sudo_user: "{{username}}"
   register: virtualenv
 
 - include: virtualenv.yml
@@ -34,9 +34,9 @@
 - include: rvm.yml
 
 - name: Check for VIM Configuration
-  stat: path=/home/dev/.vim
+  stat: path="/home/{{username}}/.vim"
   sudo: yes
-  sudo_user: dev
+  sudo_user: "{{username}}"
   register: vim
 
 - include: vim.yml
