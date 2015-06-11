@@ -4,5 +4,7 @@
   roles:
     - python27
     - dev
+  vars:
+    username: dev
 
 
