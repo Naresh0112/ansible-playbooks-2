@@ -32,7 +32,7 @@ Using a Playbook
 
 ```shell
 cd playbook
-ansible-playbook -i hosts <play>.yml
+ansible-playbook -i hosts <play>.yml --extra-vars "user=ec2-user"
 ```
 
 Our Roles
