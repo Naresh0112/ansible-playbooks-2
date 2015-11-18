@@ -1,0 +1,27 @@
+---
+
+- name: Install nginx Packages
+  yum: name={{ item }} state=present
+  sudo: yes
+  with_items: 
+    - nginx
+
+- name: Setup nginx Account
+  user: name=nginx state=present
+  sudo: yes
+
+- name: Patch SELinux
+  sudo: yes
+  command: setsebool httpd_can_network_connect 1
+  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
+
+- name: Check for nginx configurations
+  stat: path=/etc/nginx/conf.d/catalog.conf
+  register: nginx_conf
+
+- include: nginx_config.yml
+  when: nginx_conf.stat.exists == False
+
+- name: Start nginx
+  sudo: yes
+  service: name=nginx state=restarted
