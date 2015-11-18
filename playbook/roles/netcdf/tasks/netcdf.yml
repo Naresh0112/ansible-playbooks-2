@@ -9,7 +9,7 @@
 - name: Install HDF5 from source
   get_url: url=http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.15-patch1/src/hdf5-1.8.15-patch1.tar.bz2 dest=/tmp/hdf5-1.8.15-patch1.tar.bz2 force=no
 
-- name: Extracet HDF5 Source Code
+- name: Extract HDF5 Source Code
   command: /bin/tar -jxvf /tmp/hdf5-1.8.15-patch1.tar.bz2 chdir=/usr/local/src creates=/usr/local/src/hdf5-1.8.15-patch1/configure
   sudo: yes
 
