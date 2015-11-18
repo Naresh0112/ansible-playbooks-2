@@ -18,6 +18,7 @@
     - bzip2-devel
     - freetype-devel
     - libpng-devel
+    - gcc-c++
 
 - name: Check for python 27
   stat: path=/usr/local/bin/python27

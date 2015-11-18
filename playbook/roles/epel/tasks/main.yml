@@ -1,0 +1,9 @@
+---
+
+- name: Install EPEL
+  yum: name={{ item }} state=present
+  sudo: yes
+  with_items:
+    - epel-release
+  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
+
