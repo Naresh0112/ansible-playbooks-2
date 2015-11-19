@@ -32,4 +32,14 @@
   sudo: yes
   service: name=httpd state=restarted
 
+- name: "We need to close port 80: installing wordpress leaves the host vulnerable"
+  sudo: yes
+  command: firewall-cmd --zone=public --remove-service=http --permanent
+  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
+
+- name: Reload the firewall after we've made the changes
+  sudo: yes
+  command: firewall-cmd --reload
+  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
+
 - include: wordpress.yml
