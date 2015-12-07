@@ -5,14 +5,14 @@
   sudo: yes
   with_items:
     - epel-release
-  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
+  when: ansible_distribution == "CentOS"
 
 - name: Add SELinux Utilities
   yum: name={{ item }} state=present
   sudo: yes
   with_items:
     - policycoreutils-python
-  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
+  when: ansible_distribution == "CentOS"
 
 - name: Add pip
   yum: name={{ item }} state=present
