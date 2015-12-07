@@ -4,6 +4,7 @@
   roles:
     - epel
     - python27
+    - netcdf
     - web
-  vars:
-    username: dev
+    - myglos
+
