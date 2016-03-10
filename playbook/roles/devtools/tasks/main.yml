@@ -28,6 +28,7 @@
     - libpng-devel
     - gcc-c++
     - wget
+    - zsh
 
 
 - name: Check for VIM Configuration
@@ -44,3 +45,15 @@
 - name: Install tmux config
   shell: curl https://raw.githubusercontent.com/lukecampbell/tmux-config/master/install.sh | bash -s stable
   when: tmux.stat.exists == False
+
+- name: Check for zshrc
+  stat: path="/home/{{user}}/.zshrc"
+  register: zshrc
+
+- name: Install zsh config
+  shell: curl https://raw.githubusercontent.com/lukecampbell/oh-my-zsh/master/install.sh | bash -s stable
+  when: zshrc.stat.exists == False
+
+- name: Chance default shell to zsh
+  sudo: yes
+  command: chsh -s /usr/bin/zsh {{user}}
